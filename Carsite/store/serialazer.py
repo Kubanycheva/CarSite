@@ -27,6 +27,7 @@ class ProductListSerializer(serializers.ModelSerializer):
         model = Product
         fields = ['id', 'product_name', 'price', 'average_rating', 'date']
 
+
     def get_average_rating(self, obj):
         return obj.get_average_rating()
 

@@ -23,9 +23,10 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class ProductListSerializer(serializers.ModelSerializer):
     average_rating = serializers.SerializerMethodField()
+
     class Meta:
         model = Product
-        fields = ['id', 'product_name', 'price', 'average_rating', 'date']
+        fields = ['id', 'product_name', 'price', 'average_rating', ]
 
 
     def get_average_rating(self, obj):
@@ -43,7 +44,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ['product_name', 'category', 'description', 'product', 'price', 'active', 'product_photos',
-                  'average_rating', 'ratings', 'reviews', 'date', 'owner']
+                  'average_rating', 'ratings', 'reviews', 'owner']
 
     def get_average_rating(self, obj):
         return obj.get_average_rating()

@@ -3,14 +3,14 @@ from modeltranslation.admin import TranslationAdmin
 from .models import *
 
 
-class ProductPhotoInline(admin.TabularInline):
+class ProductPhotosInline(admin.TabularInline):
     model = ProductPhotos
     extra = 1
 
 
 @admin.register(Product)
 class ProductAdmin(TranslationAdmin):
-    inlines = [ProductPhotoInline]
+    inlines = [ProductPhotosInline]
 
     class Media:
         js = (
@@ -25,6 +25,4 @@ class ProductAdmin(TranslationAdmin):
 
 admin.site.register(UserProfile)
 admin.site.register(Category)
-from django.contrib import admin
 
-# Register your models here.

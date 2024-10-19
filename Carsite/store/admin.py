@@ -1,6 +1,6 @@
 from django.contrib import admin
-from modeltranslation.admin import TranslationAdmin
 from .models import *
+from modeltranslation.admin import TranslationAdmin
 
 
 class ProductPhotosInline(admin.TabularInline):
@@ -25,4 +25,8 @@ class ProductAdmin(TranslationAdmin):
 
 admin.site.register(UserProfile)
 admin.site.register(Category)
+admin.site.register(Rating)
+admin.site.register(Review)
+
+
 

@@ -1,10 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class UserProfile(AbstractUser):
     phone_number = PhoneNumberField(region='KG', null=True, blank=True)
 
 
@@ -20,6 +19,7 @@ class Product(models.Model):
     description = models.TextField()
     year = models.DateTimeField()
     price = models.PositiveSmallIntegerField(default=0)
+    date = models.DateTimeField(auto_now=True)
     active = models.BooleanField(verbose_name='в наличии', default=True)
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     car_mileage = models.CharField(max_length=32, null=True, blank=True)
@@ -46,6 +46,7 @@ class Product(models.Model):
     region = models.CharField(max_length=32, null=True, blank=True)
     uchot = models.CharField(max_length=32, null=True, blank=True)
     owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, blank=True)
+    product_photos = models.ImageField(upload_to='image/', verbose_name='Фото', null=True, blank=True)
 
     def __str__(self):
         return self.product_name

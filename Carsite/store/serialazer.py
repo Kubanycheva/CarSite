@@ -77,13 +77,20 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class ProductListSerializer(serializers.ModelSerializer):
     year = serializers.DateTimeField(format='%Y')
+    price_dollar = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Product
-        fields = ['id', 'product_name', 'price', 'year']
+        fields = ['id', 'product_name', 'price', 'year', 'price_dollar']
 
     def get_average_rating(self, obj):
         return obj.get_average_rating()
+
+    def get_price_dollar(self, obj):
+        exchange_rate = 88.5
+        return round(obj.price / exchange_rate, 2)
+
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
@@ -94,7 +101,6 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     date = serializers.DateTimeField(format='%d-%m-%Y')
     owner = UserProfileSimpleSerializer()
     ratings = RatingSerializer(many=True, read_only=True)
-
     class Meta:
         model = Product
         fields = ['product_name', 'category', 'description', 'product', 'price', 'active', 'product_photos',
